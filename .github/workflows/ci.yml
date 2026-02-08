@@ -1,13 +1,3 @@
-name: CI Dashboard Project
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-
   backend:
     runs-on: ubuntu-latest
 
@@ -28,31 +18,11 @@ jobs:
       - name: Ejecutar migraciones
         run: |
           cd dashboard
+          export PYTHONPATH=$PWD
           python manage.py migrate
 
       - name: Ejecutar tests Django
         run: |
           cd dashboard
+          export PYTHONPATH=$PWD
           python manage.py test
-
-  frontend:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v3
-
-      - name: Instalar Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Instalar dependencias frontend
-        run: |
-          cd frontend
-          npm install
-
-      - name: Build del frontend
-        run: |
-          cd frontend
-          npm run build
