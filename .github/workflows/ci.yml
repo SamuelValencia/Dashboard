@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: true
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
     steps:
       - name: Clonar repositorio
